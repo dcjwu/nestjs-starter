@@ -1,0 +1,35 @@
+name: Dev
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  Style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: NPM Install
+        run: npm ci
+      - name: Linter
+        run: npm run lint:dry
+      - name: Formatter
+        run: npm run format:dry
+  Test-Unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: NPM Install
+        run: npm ci
+      - name: Unit Tests
+        run: npm run test:ci
+#    Deploy:
